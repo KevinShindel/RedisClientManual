@@ -9,7 +9,7 @@ from app.model.site import SiteDaoRedis
 
 
 def main():
-    client_type = sys.argv[0]
+    client_type = sys.argv[1]
     if client_type == 'd':
         client = get_redis_connection()
     elif client_type == 'a':
@@ -22,8 +22,8 @@ def main():
         client = get_redis_connection()
 
     db = SiteDaoRedis(client=client)
-    site = SiteModel()
-    result = db.create(site=site)
+    sites = [SiteModel(id=i) for i in range(10000)]
+    result = db.bulk_create(*sites)
     print(result)
 
 

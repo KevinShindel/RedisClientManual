@@ -5,6 +5,7 @@ from app.model.model import SiteModel
 
 
 class FlatCoordinateSchema(marshmallow.Schema):
+
     @marshmallow.pre_load
     def flat_to_nested_coordinate(self, in_data, **kwargs):
         # Ignore if this is a Coordinate object -- i.e. it only has

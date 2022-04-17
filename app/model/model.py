@@ -9,7 +9,7 @@ class CoordinateModel:
     lat: float
 
 
-@dataclass
+@dataclass(frozen=True, eq=True)
 class SiteModel:
     """ solar plant instance """
     id: int = field(default=1)
@@ -19,7 +19,6 @@ class SiteModel:
     city: str = field(default='KS')
     state: str = field(default='UA')
     postal_code: str = field(default='73000')
-    is_active: bool = field(default=False)
     coordinate: typing.Union[CoordinateModel, None] = field(default=None)
 
     @property
@@ -32,4 +31,3 @@ class SiteModel:
     @classmethod
     def load(cls, kwargs):
         return cls(**kwargs)
-
