@@ -1,7 +1,30 @@
+import sys
+
+from app.core.core import (get_redis_connection,
+                           get_async_redis_connection,
+                           get_cloud_redis_connection,
+                           get_cluster_redis_connection)
+from app.model.model import SiteModel
+from app.model.site import SiteDaoRedis
 
 
 def main():
-    pass # TODO: Create logic for testing redis clients
+    client_type = sys.argv[0]
+    if client_type == 'd':
+        client = get_redis_connection()
+    elif client_type == 'a':
+        client = get_async_redis_connection()
+    elif client_type == 'c':
+        client = get_cloud_redis_connection()
+    elif client_type == 't':
+        client = get_cluster_redis_connection()
+    else:
+        client = get_redis_connection()
+
+    db = SiteDaoRedis(client=client)
+    site = SiteModel()
+    result = db.create(site=site)
+    print(result)
 
 
 if __name__ == '__main__':

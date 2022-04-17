@@ -52,3 +52,22 @@ def get_cloud_redis_connection():
                          username=REDIS_CLOUD_USERNAME,
                          decode_responses=True)
     return client_redis
+
+
+def get_cluster_redis_connection(hostname=REDIS_HOST,
+                                 port=7000,
+                                 username=REDIS_USERNAME,
+                                 password=REDIS_PASSWORD,
+                                 db=REDIS_DB):
+    """ cluster Redis client using redis client """
+    client_kwargs = {
+        "host": hostname,
+        "port": port,
+        "decode_responses": True,
+        "db": db
+    }
+    if password:
+        client_kwargs["password"] = password
+    if username:
+        client_kwargs["username"] = username
+        return Redis(**client_kwargs)

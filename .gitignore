@@ -2,3 +2,5 @@
 .env
 .pytest_cache
 venv
+dump.rdb
+cluster-test
